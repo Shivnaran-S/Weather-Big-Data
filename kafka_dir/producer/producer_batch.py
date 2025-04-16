@@ -20,3 +20,10 @@ def send_batch_data():
         producer.send('weather_batch', value=weather)
         print(f"Sent batch: {weather}")
         time.sleep(0.1)
+
+if __name__=="__main__":
+    producer = KafkaProducer(
+        bootstrap_servers='localhost:9092',
+        value_serializer=lambda v: json.dumps(v).encode('utf-8')
+    )
+    send_batch_data()
